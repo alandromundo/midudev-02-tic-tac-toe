@@ -7,20 +7,35 @@ import Turns from './components/Turns.jsx';
 
 function App() {
 
-  const [board, setBoard] = useState(Array(9).fill(null));
+  const [board, setBoard] = useState(() => {
+    const boardFromLocalStorage = window.localStorage.getItem('board')
+    return boardFromLocalStorage ? JSON.parse(boardFromLocalStorage) :
+    Array(9).fill(null)
+  });
 
-  const [turn, setTurn] = useState(TURNS.X);
+  const [turn, setTurn] = useState(() => {
+    const turnFromLocalStorage = window.localStorage.getItem('turn')
+    return turnFromLocalStorage ?? TURNS.X
+  });
+
+  const [move, setMove] = useState(() => {
+    const moveFromLocalStorage = window.localStorage.getItem('move')
+    return moveFromLocalStorage ?? 1
+  });
 
   // If false = draw; if true = someone Won
   const [winner, setWinner] = useState(null);
 
-  const [move, setMove] = useState(1);
 
   const resetGame = () => {
     setBoard(Array(9).fill(null));
     setTurn(TURNS.X);
     setWinner(null);
     setMove(1);
+
+    window.localStorage.removeItem('board');
+    window.localStorage.removeItem('turn');
+    window.localStorage.removeItem('move');
   }
 
   return (

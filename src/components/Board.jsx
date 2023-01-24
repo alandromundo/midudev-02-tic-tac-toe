@@ -20,8 +20,14 @@ function Board({ board, turn, move, winner, setBoard, setTurn, setMove, setWinne
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X;
     setTurn(newTurn);
   
-    setMove(move + 1);
+    const newMove = move + 1;
+    setMove(newMove);
   
+    // Save game here
+    window.localStorage.setItem('board', JSON.stringify(newBoard));
+    window.localStorage.setItem('turn', newTurn);
+    window.localStorage.setItem('move', newMove);
+    // Check if there's a winner
     const newWinner = checkWinner(newBoard, move);
   
     if (newWinner) {
