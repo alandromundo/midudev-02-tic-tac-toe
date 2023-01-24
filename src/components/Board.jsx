@@ -2,6 +2,7 @@ import React from 'react'
 import { Square } from './Square'
 import { checkWinner, checkEndGame } from './../logic/board.js';
 import { TURNS } from '../constants';
+import confetti from 'canvas-confetti';
 
 function Board({ board, turn, move, winner, setBoard, setTurn, setMove, setWinner }) {
 
@@ -25,6 +26,7 @@ function Board({ board, turn, move, winner, setBoard, setTurn, setMove, setWinne
   
     if (newWinner) {
       setWinner(newWinner);
+      confetti();
     } // TODO: check if game is over
     else if (checkEndGame(newBoard)) {
       setWinner(false);
